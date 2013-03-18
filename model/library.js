@@ -22,13 +22,15 @@ exports.getModel = function (app) {
             // Set URL and identifying details
             output.url = input.url || null;
             output.name = null;
-            output.uname = null;
+            output.username = null;
 
-            // Set name if URL is valid Repo URL
+            // Set name/username if URL is valid Repo URL
             if (model.util.isValidRepoUrl(output.url)) {
                 var repoInfo = model.util.getRepoInfoFromUrl(output.url);
                 output.name = repoInfo.name;
-                output.uname = repoInfo.username;
+                output.username = repoInfo.username;
+                // Normalize the URL while we're at it
+                output.url = 'https://github.com/' + output.username + '/' + output.name;
             }
 
             // 'Untouchable' data
@@ -42,12 +44,23 @@ exports.getModel = function (app) {
         validate: function (input, callback) {
             var errors = [];
 
-            // Validate URL (which in turn validates name/uname)
+            // Validate URL (which in turn validates name/username)
             if (!model.util.isValidRepoUrl(output.url)) {
                 errors.push('Please enter a valid GitHub repository URL');
             }
 
-            callback(null, errors, input);
+            // Basic checking done, return before we do anything expensive
+            if (errors.length) {
+                return callback(null, errors, input);
+            }
+
+            // Check whether the repository has been added already
+            model.util.isRepositoryAdded(output.url, function (err, alreadyExists) {
+                if (alreadyExists) {
+                    errors.push('The library you entered has already been submitted')
+                }
+                callback(err, errors, input);
+            });
         },
 
         // Create a new library
@@ -85,6 +98,16 @@ exports.getModel = function (app) {
                     username: matches[2],
                     name: matches[3]
                 };
+            },
+
+            // Get whether a repository has already been added
+            isRepositoryAdded: function (url, callback) {
+                var info = model.util.getRepoInfoFromUrl(url);
+                collection.findOne(info, function (err, lib) {
+                    console.log(lib);
+                    if (err) { return callback(err); }
+                    callback(null, !!lib);
+                });
             }
 
         }

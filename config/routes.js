@@ -32,7 +32,7 @@ exports.route = function (app, callback) {
                 req.flash('errors', validationErrors);
                 return res.redirect('/submit');
             }
-            res.redirect('/submitted?repo=' + lib.uname + '/' + lib.name);
+            res.redirect('/submitted?repo=' + lib.username + '/' + lib.name);
         });
     });
 
