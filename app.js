@@ -35,7 +35,7 @@ async.series([
     // Load models
     function (next) {
         app.model = {
-            library: require('model/library').getModel(app)
+            library: require('./model/library').getModel(app)
         };
         next();
     },
