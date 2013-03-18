@@ -18,6 +18,9 @@ exports.configure = function (app, callback) {
     // Set the application port
     app.set('port', (process.env.PORT || config.port));
 
+    // Set database connection details
+    app.set('db-connection-string', (process.env.DB || 'mongodb://localhost/cssdb'));
+
     // Compile Sass styles
     app.use(sass.middleware({
         src: appDir + '/asset',

@@ -2,6 +2,7 @@
 // Dependencies
 var async = require('async');
 var express = require('express');
+var MongoClient = require('mongodb').MongoClient;
 var pkg = require('./package');
 
 // Create application
@@ -18,6 +19,17 @@ async.series([
     // Basic configuration
     function (next) {
         require('./config/config').configure(app, next);
+    },
+
+    // Connect to database
+    function (next) {
+        var opts = {
+            auto_reconnect: true
+        };
+        MongoClient.connect(app.get('db-connection-string'), opts, function (err, db) {
+            app.set('db', db);
+            next(err);
+        });
     },
 
     // Load routes
