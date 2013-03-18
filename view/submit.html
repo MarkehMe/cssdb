@@ -1,0 +1,28 @@
+
+{{#fill title}} Submit A CSS Library {{/fill}}
+
+<h1>Submit A CSS Library</h1>
+
+<form action="/submit" method="post">
+
+    {{#if errors.length}}
+        <div class="feedback error">
+            <p>Something went wrong when submitting your library.</p>
+            <ul>
+                {{#each errors}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+
+    <div class="field">
+        <label for="library-url">GitHub URL</label>
+        <input id="library-url" name="url" type="text" value="{{lib.url}}" placeholder="E.g. https://github.com/username/repo"/>
+    </div>
+
+    <div class="buttons">
+        <input type="submit" value="Submit Library"/>
+    </div>
+
+</form>

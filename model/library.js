@@ -18,14 +18,35 @@ exports.getModel = function (app) {
         // Transform input into something readable by the validator/creator
         transformInput: function (input) {
             output = {};
+
+            // Set URL and identifying details
             output.url = input.url || null;
+            output.name = null;
+            output.uname = null;
+
+            // Set name if URL is valid Repo URL
+            if (model.util.isValidRepoUrl(output.url)) {
+                var repoInfo = model.util.getRepoInfoFromUrl(output.url);
+                output.name = repoInfo.name;
+                output.uname = repoInfo.username;
+            }
+
+            // 'Untouchable' data
             output.active = true; // temporary
+            output.created = new Date();
+
             return output
         },
 
         // Validate input to create a new library
         validate: function (input, callback) {
             var errors = [];
+
+            // Validate URL (which in turn validates name/uname)
+            if (!model.util.isValidRepoUrl(output.url)) {
+                errors.push('Please enter a valid GitHub repository URL');
+            }
+
             callback(null, errors, input);
         },
 
@@ -42,6 +63,30 @@ exports.getModel = function (app) {
                     callback(err, [], libs[0] || null);
                 });
             });
+        },
+
+        // Model utilities
+        util: {
+
+            repoUrlRegExp: /^https?:\/\/(www\.)?github\.com\/([a-z0-9][a-z0-9\-]{0,39})\/([a-z0-9\-]{1,100})\/?$/i,
+
+            // Return whether a value is a valid Repo URL
+            isValidRepoUrl: function (val) {
+                if (typeof val !== 'string') {
+                    return false;
+                }
+                return model.util.repoUrlRegExp.test(val);
+            },
+
+            // Get information from a Repo URL
+            getRepoInfoFromUrl: function (url) {
+                var matches = url.match(model.util.repoUrlRegExp);
+                return {
+                    username: matches[2],
+                    name: matches[3]
+                };
+            }
+
         }
 
     };

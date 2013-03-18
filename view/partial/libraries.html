@@ -1,0 +1,14 @@
+
+{{#if libs.length}}
+
+    <ul class="libraries">
+        {{#each libs}}
+            <li>{{> library}}</li>
+        {{/each}}
+    </ul>
+
+{{else}}
+
+    <p>No libraries found</p>
+
+{{/if}}

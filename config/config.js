@@ -1,6 +1,7 @@
 
 // Dependencies
 var express = require('express');
+var flash = require('connect-flash');
 var hbs = require('express-hbs');
 var sass = require('node-sass');
 
@@ -39,6 +40,8 @@ exports.configure = function (app, callback) {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
+    app.use(express.session({secret: (process.env.SESSION_SECRET || 'ಠ_ಠ')}));
+    app.use(flash());
 
     // Disable X-Powered-By: Express
     app.disable('x-powered-by');
