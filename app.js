@@ -32,6 +32,14 @@ async.series([
         });
     },
 
+    // Load models
+    function (next) {
+        app.model = {
+            library: require('model/library').getModel(app)
+        };
+        next();
+    },
+
     // Load routes
     function (next) {
         require('./config/routes').route(app, next);
