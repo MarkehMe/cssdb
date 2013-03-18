@@ -1,0 +1,23 @@
+{
+    "name": "cssdb",
+    "version": "0.0.0",
+    "private": true,
+
+    "engines": {
+        "node": ">=0.8"
+    },
+    "dependencies": {
+        "async": "~0.2",
+        "express": "~3.1",
+        "express-hbs": "~0.1",
+        "node-sass": "~0.3"
+    },
+    "devDependencies": {
+        "supervisor": "~0.5"
+    },
+
+    "main": "./app.js",
+    "scripts": {
+        "start": "node app.js"
+    }
+}
