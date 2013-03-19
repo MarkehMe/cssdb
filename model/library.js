@@ -1,9 +1,13 @@
 
+// Dependencies
+var async = require('async');
+
 // Model
 exports.getModel = function (app) {
 
     // Get database and collection
     var db = app.get('db');
+    var github = app.get('github');
     var collection = db.collection('libraries');
 
     // Model methods
@@ -22,15 +26,15 @@ exports.getModel = function (app) {
             // Set URL and identifying details
             output.url = input.url || null;
             output.name = null;
-            output.username = null;
+            output.owner = null;
 
-            // Set name/username if URL is valid Repo URL
+            // Set name/owner if URL is valid Repo URL
             if (model.util.isValidRepoUrl(output.url)) {
                 var repoInfo = model.util.getRepoInfoFromUrl(output.url);
                 output.name = repoInfo.name;
-                output.username = repoInfo.username;
+                output.owner = repoInfo.owner;
                 // Normalize the URL while we're at it
-                output.url = 'https://github.com/' + output.username + '/' + output.name;
+                output.url = 'https://github.com/' + output.owner + '/' + output.name;
             }
 
             // 'Untouchable' data
@@ -44,7 +48,7 @@ exports.getModel = function (app) {
         validate: function (input, callback) {
             var errors = [];
 
-            // Validate URL (which in turn validates name/username)
+            // Validate URL (which in turn validates name/owner)
             if (!model.util.isValidRepoUrl(output.url)) {
                 errors.push('Please enter a valid GitHub repository URL');
             }
@@ -54,13 +58,38 @@ exports.getModel = function (app) {
                 return callback(null, errors, input);
             }
 
-            // Check whether the repository has been added already
-            model.util.isRepositoryAdded(output.url, function (err, alreadyExists) {
-                if (alreadyExists) {
-                    errors.push('The library you entered has already been submitted')
+            // DB/API checks
+            async.series([
+
+                // Check whether the repository has been added already
+                function (next) {
+                    model.util.isRepoAdded(output.owner, output.name, function (err, alreadyExists) {
+                        if (alreadyExists) {
+                            errors.push('The library you entered has already been submitted')
+                        }
+                        next(err);
+                    });
+                },
+
+                // Check that the repo actually exists
+                function (next) {
+                    model.util.getGitHubRepo(output.owner, output.name, function (err, repo) {
+                        if (!repo) {
+                            errors.push(
+                                'We couldn\'t find the GitHub repository for your library. ' +
+                                'GitHub may be down, but check your spelling just in case'
+                            );
+                        }
+                        next();
+                    });
                 }
+
+                //model.util.getGitHubRepo(output.owner, output.name);
+
+            ], function (err) {
                 callback(err, errors, input);
             });
+
         },
 
         // Create a new library
@@ -95,19 +124,25 @@ exports.getModel = function (app) {
             getRepoInfoFromUrl: function (url) {
                 var matches = url.match(model.util.repoUrlRegExp);
                 return {
-                    username: matches[2],
+                    owner: matches[2],
                     name: matches[3]
                 };
             },
 
             // Get whether a repository has already been added
-            isRepositoryAdded: function (url, callback) {
-                var info = model.util.getRepoInfoFromUrl(url);
-                collection.findOne(info, function (err, lib) {
-                    console.log(lib);
+            isRepoAdded: function (owner, name, callback) {
+                collection.findOne({
+                    owner: owner,
+                    name: name
+                }, function (err, lib) {
                     if (err) { return callback(err); }
                     callback(null, !!lib);
                 });
+            },
+
+            // Get a GitHub repository
+            getGitHubRepo: function (owner, name, callback) {
+                github.get('/repos/' + owner + '/' + name, callback);
             }
 
         }

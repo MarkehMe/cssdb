@@ -2,6 +2,7 @@
 // Dependencies
 var async = require('async');
 var express = require('express');
+var github = require('octonode');
 var MongoClient = require('mongodb').MongoClient;
 var pkg = require('./package');
 
@@ -30,6 +31,23 @@ async.series([
             app.set('db', db);
             next(err);
         });
+    },
+
+    // Create GitHub client
+    function (next) {
+        var client;
+        var clientId = app.get('github-client-id');
+        var clientSecret = app.get('github-client-secret');
+        if (clientId === null || clientSecret === null) {
+            client = github.client();
+        } else {
+            client = github.client({
+                id: app.get('github-client-id'),
+                secret: app.get('github-client-secret')
+            });
+        }
+        app.set('github', client);
+        next();
     },
 
     // Load models

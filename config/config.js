@@ -22,6 +22,10 @@ exports.configure = function (app, callback) {
     // Set database connection details
     app.set('db-connection-string', (process.env.DB || 'mongodb://localhost/cssdb'));
 
+    // Set GitHub details
+    app.set('github-client-id', (process.env.GITHUB_CLIENT_ID || null));
+    app.set('github-client-secret', (process.env.GITHUB_CLIENT_SECRET || null));
+
     // Compile Sass styles
     app.use(sass.middleware({
         src: appDir + '/asset',

@@ -12,7 +12,8 @@
         "express": "~3.1",
         "express-hbs": "~0.1",
         "mongodb": "~1.2",
-        "node-sass": "~0.3"
+        "node-sass": "~0.3",
+        "octonode": "~0.3"
     },
     "devDependencies": {
         "supervisor": "~0.5"
