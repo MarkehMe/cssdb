@@ -15,10 +15,7 @@ exports.route = function (app, callback) {
 
     // Submit a library
     app.get('/submit', function (req, res) {
-        res.render('submit', {
-            errors: req.flash('errors')[0] || [],
-            lib: req.flash('lib')[0] || null
-        });
+        res.render('submit');
     });
 
     // Submit a library
@@ -28,9 +25,10 @@ exports.route = function (app, callback) {
                 return next(err);
             }
             if (validationErrors.length) {
-                req.flash('lib', req.body);
-                req.flash('errors', validationErrors);
-                return res.redirect('/submit');
+                return res.render('submit', {
+                    errors: validationErrors,
+                    lib: req.body || null
+                });
             }
             res.redirect('/submitted?repo=' + lib.owner + '/' + lib.name);
         });
