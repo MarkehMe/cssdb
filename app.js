@@ -25,7 +25,9 @@ async.series([
     // Connect to database
     function (next) {
         var opts = {
-            auto_reconnect: true
+            server: {
+                auto_reconnect: true
+            }
         };
         MongoClient.connect(app.get('db-connection-string'), opts, function (err, db) {
             app.set('db', db);
