@@ -1,0 +1,8 @@
+{
+    "name": "cssdb",
+    "version": "0.0.0",
+    "dependencies": {
+        "frag": "~2.1",
+        "pigeon": "~1.1"
+    }
+}

@@ -3,6 +3,9 @@
 node_modules
 npm-debug.log
 
+# Generated bower files
+asset/vendor
+
 # Generated assets
 public/style
 public/script
