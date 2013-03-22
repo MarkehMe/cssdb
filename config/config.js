@@ -7,6 +7,7 @@ var hbs = require('express-hbs');
 exports.configure = function (app, callback) {
 
     // Grab some useful app info
+    var pkg = app.get('pkg');
     var appDir = app.get('dir');
     var appEnv = app.get('env');
     var isProduction = (appEnv === 'production');
@@ -54,7 +55,14 @@ exports.configure = function (app, callback) {
 
     // Set some useful dynamic view variables
     app.locals({
-        year: (new Date()).getFullYear()
+
+        // Current dates
+        year: (new Date()).getFullYear(),
+
+        // Asset suffixes
+        min: (isProduction ? '.min' : ''),
+        cacheBuster: '?v=' + pkg.version
+
     });
 
     // We're done configuring

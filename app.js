@@ -10,6 +10,7 @@ var pkg = require('./package');
 var app = express();
 
 // Set some core vars
+app.set('pkg', pkg);
 app.set('name', pkg.name);
 app.set('version', pkg.version);
 app.set('dir', __dirname);
