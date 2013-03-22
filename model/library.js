@@ -1,6 +1,7 @@
 
 // Dependencies
 var async = require('async');
+var crypto = require('crypto');
 
 // Model
 exports.getModel = function (app) {
@@ -23,7 +24,7 @@ exports.getModel = function (app) {
         },
 
         // Transform input into something readable by the validator/creator
-        transformInput: function (input) {
+        transformInput: function (input, callback) {
             output = {};
 
             // Set URL and identifying details
@@ -41,10 +42,22 @@ exports.getModel = function (app) {
             }
 
             // 'Untouchable' data
-            output.active = true; // temporary
+            output.active = false;
             output.created = new Date();
 
-            return output
+            // Create activation key
+            output.key = null;
+            crypto.randomBytes(12, function(err, buffer) {
+                if (err) {
+                    return callback(err, output);
+                }
+
+                // Set key
+                output.key = buffer.toString('hex') + ':' + output.owner + ':' + output.name;
+
+                // All done
+                callback(null, output);
+            });
         },
 
         // Validate input to create a new library
@@ -87,8 +100,6 @@ exports.getModel = function (app) {
                     });
                 }
 
-                //model.util.getGitHubRepo(output.owner, output.name);
-
             ], function (err) {
                 callback(err, errors, input);
             });
@@ -97,16 +108,31 @@ exports.getModel = function (app) {
 
         // Create a new library
         create: function (input, callback) {
-            model.validate(model.transformInput(input), function (err, validationErrors, newLib) {
+            model.transformInput(input, function (err, transformedInput) {
                 if (err) {
                     return callback(err, [], null);
                 }
-                if (validationErrors.length) {
-                    return callback(null, validationErrors, null);
-                }
-                collection.insert(newLib, function (err, libs) {
-                    callback(err, [], libs[0] || null);
+                model.validate(transformedInput, function (err, validationErrors, newLib) {
+                    if (err) {
+                        return callback(err, [], null);
+                    }
+                    if (validationErrors.length) {
+                        return callback(null, validationErrors, null);
+                    }
+                    collection.insert(newLib, function (err, libs) {
+                        callback(err, [], libs[0] || null);
+                    });
                 });
+            });
+        },
+
+        // Activate a library
+        activate: function (key, callback) {
+            if (typeof key !== 'string') {
+                return callback(null, null);
+            }
+            collection.update({key: key}, {$set: {active: true}}, function (err, count) {
+                return callback(err, (count > 0));
             });
         },
 

@@ -41,6 +41,22 @@ exports.route = function (app, callback) {
         });
     });
 
+    // Activate a submitted library
+    app.get('/activate', function (req, res, next) {
+        library.activate(req.query.key, function (err, wasActivated) {
+            if (err) { return next(err); }
+            if (!wasActivated) {
+                return res.json(400, {
+                    success: false,
+                    error: 'Invalid activation key'
+                });
+            }
+            res.json({
+                success: true
+            });
+        });
+    });
+
     // 404 errors
     app.use(function (req, res) {
         res.send(404, 'Not Found'); // Todo
