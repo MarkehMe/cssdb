@@ -2,7 +2,6 @@
 // Dependencies
 var express = require('express');
 var hbs = require('express-hbs');
-var sass = require('node-sass');
 
 // Configure
 exports.configure = function (app, callback) {
@@ -24,13 +23,6 @@ exports.configure = function (app, callback) {
     // Set GitHub details
     app.set('github-client-id', (process.env.GITHUB_CLIENT_ID || null));
     app.set('github-client-secret', (process.env.GITHUB_CLIENT_SECRET || null));
-
-    // Compile Sass styles
-    app.use(sass.middleware({
-        src: appDir + '/asset',
-        dest: appDir + '/public',
-        output_style: (isProduction ? 'compressed' : 'nested')
-    }));
 
     // Static file directory
     var staticMaxAge = (isProduction ? config.staticMaxAge : 0); // 1 week
