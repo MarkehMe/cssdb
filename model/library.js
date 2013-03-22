@@ -15,8 +15,11 @@ exports.getModel = function (app) {
 
         // Get the latest libraries
         latest: function (count, callback) {
-            var cur = collection.find({active: true});
-            cur.sort({created: -1}).limit(count).toArray(callback);
+            collection
+                .find({active: true})
+                .sort({created: -1})
+                .limit(count)
+                .toArray(callback);
         },
 
         // Transform input into something readable by the validator/creator
