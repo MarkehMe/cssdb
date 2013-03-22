@@ -41,6 +41,16 @@ exports.route = function (app, callback) {
         });
     });
 
+    // 404 errors
+    app.use(function (req, res) {
+        res.send(404, 'Not Found'); // Todo
+    });
+
+    // 50x errors
+    app.use(function (err, req, res, next) {
+        res.send(500, 'Server Error:<br/>' + err.stack); // Todo
+    });
+
     // We're done routing
     callback();
 
