@@ -17,6 +17,7 @@
     },
     "devDependencies": {
         "bower": "~0.8",
+        "foreman": "0.0.25",
         "supervisor": "~0.5"
     },
 

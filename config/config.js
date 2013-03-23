@@ -12,11 +12,10 @@ exports.configure = function (app, callback) {
     var appEnv = app.get('env');
     var isProduction = (appEnv === 'production');
 
-    // Get basic config from JSON
-    var config = require('./config.json');
-
     // Set the application port
-    app.set('port', (process.env.PORT || config.port));
+    app.set('port', (process.env.PORT || 3000));
+    app.set('host', (process.env.HOST || 'localhost'));
+    app.set('baseUrl', 'http://' + app.get('host') + (isProduction ? '' : ':' + app.get('port')));
 
     // Set database connection details
     app.set('db-connection-string', (process.env.DB || 'mongodb://localhost/cssdb'));
@@ -26,7 +25,7 @@ exports.configure = function (app, callback) {
     app.set('github-client-secret', (process.env.GITHUB_CLIENT_SECRET || null));
 
     // Static file directory
-    var staticMaxAge = (isProduction ? config.staticMaxAge : 0); // 1 week
+    var staticMaxAge = (isProduction ? 604800 : 0); // 1 week
     app.use(express.static(appDir + '/public', {maxAge: staticMaxAge}));
 
     // Compress responses with gzip/deflate
@@ -53,11 +52,14 @@ exports.configure = function (app, callback) {
     // Load/register additional helpers
     require('../view/helper/date').helper(hbs.registerHelper);
 
-    // Merge config with default view variables
-    app.locals(config);
-
     // Set some useful dynamic view variables
     app.locals({
+
+        // Meta information
+        lang: 'en',
+
+        // URLs
+        baseUrl: app.get('baseUrl'),
 
         // Current dates
         year: (new Date()).getFullYear(),

@@ -1,4 +1,7 @@
 
+# Config files
+.env
+
 # Cache files
 .sass-cache
 
