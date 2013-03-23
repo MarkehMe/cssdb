@@ -18,7 +18,7 @@ exports.getModel = function (app) {
         popular: function (count, callback) {
             collection
                 .find({active: true, repo: {$ne: null}})
-                .sort({'repo.stars': -1})
+                .sort({'repo.popularity': -1})
                 .limit(count)
                 .toArray(callback);
         },
@@ -49,7 +49,7 @@ exports.getModel = function (app) {
                         {'repo.description': regexp}
                     ]
                 })
-                .sort({'repo.stars': -1})
+                .sort({'repo.popularity': -1})
                 .toArray(callback);
         },
 
@@ -222,6 +222,18 @@ exports.getModel = function (app) {
             });
         },
 
+        // Recalculate all libraries repo popularities (you get nothing back from this, it's hit and hope)
+        recalculatePopularity: function () {
+            var cursor = collection.find({active: true, repo: {$ne: null}});
+            cursor.each(function(err, lib) {
+                if (err || !lib) { return; }
+                model.util.calculateRepoPopularity(lib.repo);
+                collection.update({_id: lib._id}, {$set: {'repo.popularity': lib.repo.popularity}}, function (err) {
+                    // nothing here...
+                });
+            });
+        },
+
         // Model utilities
         util: {
 
@@ -274,9 +286,39 @@ exports.getModel = function (app) {
                         updated: new Date(repo.updated_at),
                         pushed: new Date(repo.pushed_at)
                     };
+                    model.util.calculateRepoPopularity(repoFormatted);
                     callback(err, repoFormatted);
                 });
             },
+
+            // Calculate a GitHub repository's popularity
+            calculateRepoPopularity: function (repo) {
+                // Todo: work out a nicer algorithm some time
+
+                // Initial counts
+                popularity = repo.stars;
+                popularity += (repo.forks * 2);
+
+                // Last updated modifiers
+                var now = new Date();
+                var timeDiff = (now.getTime() - repo.updated.getTime()) / 1000;
+                var hoursDiff = Math.floor(timeDiff / 3600);
+                var timeDeduction = 0;
+                if (hoursDiff > 0) {
+
+                    // Minus 0.1% per hour inactive
+                    timeDeduction = ((popularity / 1000) * hoursDiff);
+
+                    // Limit deduction to at most 50% of the original popularity
+                    timeDeduction = Math.min(timeDeduction, (popularity / 2));
+
+                    popularity -= timeDeduction;
+                }
+
+                // Add to repo
+                repo.popularity = Math.max(Math.floor(popularity), 0);
+
+            }
 
         }
 
