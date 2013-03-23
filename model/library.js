@@ -273,12 +273,20 @@ exports.getModel = function (app) {
                     if (err || !repo) {
                         return callback(err, null);
                     }
+
+                    // Sanitize home page
+                    var homepage = repo.homepage;
+                    if (/^[a-z]+:\/\//i.test(homepage) !== true) {
+                        homepage = 'http://' + homepage;
+                    }
+
+                    // Format repo
                     var repoFormatted = {
                         id: repo.id,
                         ownerId: repo.owner.id,
                         ownerAvatar: repo.owner.avatar_url,
                         description: repo.description,
-                        homepage: repo.homepage,
+                        homepage: homepage,
                         branch: repo.master_branch,
                         forks: repo.forks_count,
                         stars: repo.watchers_count,
