@@ -37,8 +37,13 @@ exports.getModel = function (app) {
             if (!query.q) {
                 return callback(null, []);
             }
-            var q = query.q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-            var regexp = new RegExp(q, 'gi');
+
+            // Build regexp
+            var q = query.q.split(/\s+/).map(function (word) {
+                return word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            }).join('|');
+            var regexp = new RegExp('(' + q + ')', 'gi');
+
             collection
                 .find({
                     active: true,
