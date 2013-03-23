@@ -17,7 +17,7 @@ exports.getModel = function (app) {
         // Get the latest libraries
         latest: function (count, callback) {
             collection
-                .find({active: true})
+                .find({active: true, repo: {$ne: null}})
                 .sort({created: -1})
                 .limit(count)
                 .toArray(callback);
@@ -44,6 +44,8 @@ exports.getModel = function (app) {
             // 'Untouchable' data
             output.active = false;
             output.created = new Date();
+            output.updated = new Date();
+            output.repo = null;
 
             // Create activation key
             output.key = null;
@@ -129,10 +131,20 @@ exports.getModel = function (app) {
         // Activate a library
         activate: function (key, callback) {
             if (typeof key !== 'string') {
-                return callback(null, null);
+                return callback(null, false);
             }
-            collection.update({key: key}, {$set: {active: true}}, function (err, count) {
-                return callback(err, (count > 0));
+            collection.findOne({key: key}, function (err, lib) {
+                if (err || !lib) {
+                    return callback(err, false);
+                }
+                model.util.getGitHubRepo(lib.owner, lib.name, function (err, repo) {
+                    if (err || !repo) {
+                        return callback(err, false);
+                    }
+                    collection.update({_id: lib._id}, {$set: {active: true, repo: repo}}, function (err, count) {
+                        return callback(err, (count > 0));
+                    });
+                });
             });
         },
 
@@ -171,8 +183,26 @@ exports.getModel = function (app) {
 
             // Get a GitHub repository
             getGitHubRepo: function (owner, name, callback) {
-                github.get('/repos/' + owner + '/' + name, callback);
-            }
+                github.get('/repos/' + owner + '/' + name, function (err, status, repo) {
+                    if (err || !repo) {
+                        callback(err, null);
+                    }
+                    var repoFormatted = {
+                        id: repo.id,
+                        ownerId: repo.owner.id,
+                        ownerAvatar: repo.owner.avatar_url,
+                        description: repo.description,
+                        homepage: repo.homepage,
+                        branch: repo.master_branch,
+                        forks: repo.forks_count,
+                        stars: repo.watchers_count,
+                        created: new Date(repo.created_at),
+                        updated: new Date(repo.updated_at),
+                        pushed: new Date(repo.pushed_at)
+                    };
+                    callback(err, repoFormatted);
+                });
+            },
 
         }
 
