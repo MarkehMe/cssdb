@@ -13,6 +13,14 @@ exports.route = function (app, callback) {
         });
     });
 
+    // Search
+    app.get('/search', function (req, res, next) {
+        library.search(req.query, function (err, libs) {
+            if (err) { return next(err); }
+            res.render('search', {libs: libs, query: req.query});
+        });
+    });
+
     // Submit a library
     app.get('/submit', function (req, res) {
         res.render('submit');

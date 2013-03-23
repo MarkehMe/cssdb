@@ -23,6 +23,28 @@ exports.getModel = function (app) {
                 .toArray(callback);
         },
 
+        // Search for libraries
+        search: function (query, callback) {
+            if (!query.q) {
+                return callback(null, []);
+            }
+            var q = query.q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            var regexp = new RegExp(q, 'gi');
+            console.log(regexp);
+            collection
+                .find({
+                    active: true,
+                    repo: {$ne: null},
+                    $or: [
+                        {name: regexp},
+                        {owner: regexp},
+                        {'repo.description': regexp}
+                    ]
+                })
+                .sort({'repo.stars': -1})
+                .toArray(callback);
+        },
+
         // Transform input into something readable by the validator/creator
         transformInput: function (input, callback) {
             output = {};
