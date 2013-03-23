@@ -50,6 +50,9 @@ exports.configure = function (app, callback) {
     app.set('view engine', 'html');
     hbs.registerHelper('fill', hbs.handlebars.helpers.contentFor);
 
+    // Load/register additional helpers
+    require('../view/helper/date').helper(hbs.registerHelper);
+
     // Merge config with default view variables
     app.locals(config);
 

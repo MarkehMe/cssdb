@@ -3,4 +3,11 @@
     <a href="{{url}}">
         {{owner}}/{{name}}
     </a>
+    <p class="cramp">{{repo.description}}</p>
+    <p class="cramp"><a href="{{repo.homepage}}">{{repo.homepage}}</a></p>
+    <ul>
+        <li>Stars: {{repo.stars}}</li>
+        <li>Forks: {{repo.forks}}</li>
+        <li>Last Updated: {{date-relative repo.updated}}</li>
+    </ul>
 </div>
