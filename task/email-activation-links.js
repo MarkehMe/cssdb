@@ -63,7 +63,7 @@ exports.initTask = function (app) {
     }
 
     // Cron job
-    var job = new CronJob('0 0 */1 * * *', task);
+    var job = new CronJob('0 */30 * * * *', task);
     job.start();
 
 };
