@@ -77,6 +77,11 @@ exports.route = function (app, callback) {
         });
     });
 
+    // Vetting process information
+    app.get('/vetting', function (req, res) {
+        res.render('vetting');
+    });
+
     // 404 errors
     app.use(function (req, res) {
         res.send(404, 'Not Found'); // Todo
