@@ -2,16 +2,10 @@
 {{#fill "title"}}CSSDB: A Database Of CSS Libraries{{/fill}}
 {{#fill "description"}}CSSDB is a curated collection of great CSS, Sass, LESS and Stylus libraries{{/fill}}
 
+{{#fill "sidebar"}}
+    {{> sidebar}}
+{{/fill}}
+
 <h1>Popular CSS Libraries</h1>
 
 {{> libraries}}
-
-<a href="/submit">Submit your own library</a>
-
-<a href="/latest">View recently added libraries</a>
-
-<form action="/search" method="get">
-    <label for="library-search">Search for libraries</label><br/>
-    <input id="library-search" type="search" name="q"/>
-    <input type="submit" value="Search"/>
-</form>

@@ -4,6 +4,13 @@
     {{> head}}
 </head>
 <body>
-    {{{body}}}
+    <div class="grid">
+        <div class="col dsk-4">
+            {{{block "sidebar"}}}
+        </div>
+        <div class="col dsk-8">
+            {{{body}}}
+        </div>
+    </div>
 </body>
 </html>
