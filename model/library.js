@@ -251,7 +251,7 @@ exports.getModel = function (app) {
             getGitHubRepo: function (owner, name, callback) {
                 github.get('/repos/' + owner + '/' + name, function (err, status, repo) {
                     if (err || !repo) {
-                        callback(err, null);
+                        return callback(err, null);
                     }
                     var repoFormatted = {
                         id: repo.id,
