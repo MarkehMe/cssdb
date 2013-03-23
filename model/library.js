@@ -281,7 +281,7 @@ exports.getModel = function (app) {
 
                     // Sanitize home page
                     var homepage = repo.homepage;
-                    if (/^[a-z]+:\/\//i.test(homepage) !== true) {
+                    if (homepage && /^[a-z]+:\/\//i.test(homepage) !== true) {
                         homepage = 'http://' + homepage;
                     }
 
