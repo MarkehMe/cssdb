@@ -139,7 +139,7 @@ exports.getModel = function (app) {
         // Model utilities
         util: {
 
-            repoUrlRegExp: /^https?:\/\/(www\.)?github\.com\/([a-z0-9][a-z0-9\-]{0,39})\/([a-z0-9\-]{1,100})\/?$/i,
+            repoUrlRegExp: /^https?:\/\/(www\.)?github\.com\/([a-z0-9][a-z0-9\-]{0,39})\/([a-z0-9\-\.]{1,100})\/?$/i,
 
             // Return whether a value is a valid Repo URL
             isValidRepoUrl: function (val) {
