@@ -1,5 +1,12 @@
 
+<!-- Page meta-information -->
 <meta charset="utf-8"/>
-<title>{{{block title}}}</title>
+<title>{{block "title"}}</title>
+<meta name="description" content="{{block "description"}}"/>
+{{{block "meta"}}}
 
+<!-- Styles -->
+<meta name="viewport" content="width=device-width"/>
 <link rel="stylesheet" href="/style/app{{min}}.css{{cacheBuster}}"/>
+<link rel="icon" href="/favicon.png" type="image/png"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
