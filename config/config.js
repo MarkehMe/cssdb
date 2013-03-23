@@ -24,6 +24,13 @@ exports.configure = function (app, callback) {
     app.set('github-client-id', (process.env.GITHUB_CLIENT_ID || null));
     app.set('github-client-secret', (process.env.GITHUB_CLIENT_SECRET || null));
 
+    // Set email details
+    app.set('email-recipient', (process.env.EMAIL_RECIPIENT || null));
+    app.set('email-sender', (process.env.EMAIL_SENDER || null));
+    app.set('smtp-host', (process.env.SMTP_HOST || null));
+    app.set('smtp-user', (process.env.SMTP_USER || null));
+    app.set('smtp-pass', (process.env.SMTP_PASS || null));
+
     // Static file directory
     var staticMaxAge = (isProduction ? 604800 : 0); // 1 week
     app.use(express.static(appDir + '/public', {maxAge: staticMaxAge}));

@@ -13,6 +13,7 @@
         "express-hbs": "~0.1",
         "moment": "~2.0",
         "mongodb": "~1.2",
+        "nodemailer": "~0.4",
         "octonode": "~0.3"
     },
     "devDependencies": {

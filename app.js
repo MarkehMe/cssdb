@@ -64,6 +64,7 @@ async.series([
     // Load tasks
     function (next) {
         require('./task/refresh-outdated-libraries').initTask(app)
+        require('./task/email-activation-links').initTask(app)
         next();
     },
 

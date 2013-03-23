@@ -60,6 +60,14 @@ exports.getModel = function (app) {
                 .toArray(callback);
         },
 
+        // Get libraries that haven't had a notification email sent yet
+        awaitingNotification: function (callback) {
+            collection
+                .find({notified: false})
+                .sort({created: -1})
+                .toArray(callback);
+        },
+
         // Transform input into something readable by the validator/creator
         transformInput: function (input, callback) {
             output = {};
@@ -80,6 +88,7 @@ exports.getModel = function (app) {
 
             // 'Untouchable' data
             output.active = false;
+            output.notified = false;
             output.created = new Date();
             output.updated = new Date();
             output.repo = null;
@@ -183,6 +192,14 @@ exports.getModel = function (app) {
                     });
                 });
             });
+        },
+
+        // Mark libraries as notified
+        markAsNotified: function (libs, callback) {
+            var ids = libs.map(function (lib) {
+                return lib._id;
+            });
+            collection.update({_id: {$in: ids}}, {$set: {notified: true}}, {multi: true}, callback);
         },
 
         // Refresh a library's repo details
