@@ -23,6 +23,9 @@ exports.route = function (app, callback) {
 
     // Search
     app.get('/search', function (req, res, next) {
+        if (!req.query.q.trim()) {
+            return res.redirect('/');
+        }
         library.search(req.query, function (err, libs) {
             if (err) { return next(err); }
             res.render('search', {libs: libs, query: req.query});
