@@ -13,7 +13,7 @@ exports.configure = function (app, callback) {
     var isProduction = (appEnv === 'production');
 
     // Set the application port
-    app.set('port', (process.env.PORT || 3000));
+    app.set('port', (process.env.PORT || 5000));
     app.set('host', (process.env.HOST || 'localhost'));
     app.set('baseUrl', 'http://' + app.get('host') + (isProduction ? '' : ':' + app.get('port')));
 
