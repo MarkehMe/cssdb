@@ -1,10 +1,30 @@
 
-<a href="/">View popular libraries</a><br/>
-<a href="/latest">View recently added libraries</a><br/>
-<a href="/submit">Submit your own library</a>
+<div role="banner" class="space">
 
-<form action="/search" method="get">
-    <label for="library-search">Search for libraries</label><br/>
-    <input id="library-search" type="search" name="q"/>
-    <input type="submit" value="Search"/>
+    {{#if home}}
+        <h1 class="logo">
+            <a href="/" class="shh-a">CSSDB</a>
+        </h1>
+    {{else}}
+        <div class="h1 logo">
+            <a href="/" class="shh-a">CSSDB</a>
+        </div>
+    {{/if}}
+
+    <p class="tagline">
+        A curated collection of great CSS, Sass, LESS and Stylus libraries.
+    </p>
+
+</div>
+
+<form role="search" action="/search" method="get" class="space">
+    <label for="library-search" class="hide">Search for libraries</label>
+    <input id="library-search" type="search" name="q" placeholder="Search CSS Libraries" value="{{query.q}}"/>
+    <input type="submit" value="Search" class="hide"/>
 </form>
+
+<ul role="navigation" class="stack navigation">
+    <li><a href="/">View popular libraries</a></li>
+    <li><a href="/latest">View recently added libraries</a></li>
+    <li><a href="/submit">Submit your own library</a></li>
+</ul>

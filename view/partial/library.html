@@ -1,14 +1,18 @@
 
-<div class="library">
-    <a href="{{url}}">
-        {{owner}}/{{name}}
-    </a>
-    <p class="cramp">{{repo.description}}</p>
-    <p class="cramp"><a href="{{repo.homepage}}">{{repo.homepage}}</a></p>
-    <ul>
-        <li>Stars: {{repo.stars}}</li>
-        <li>Forks: {{repo.forks}}</li>
-        <li>Last Updated: {{date-relative repo.updated}}</li>
-        <li>Popularity: {{repo.popularity}}</li>
+<div class="cramp library">
+
+    <h3 class="cramp library-title">
+        <a href="{{url}}" class="shh-a">{{owner}}/{{name}}</a>
+    </h3>
+    <p class="cramp library-description">{{repo.description}}</p>
+    {{#if repo.homepage}}
+        <a href="{{repo.homepage}}" class="library-url">{{repo.homepage}}</a>
+    {{else}}
+        <a href="{{url}}" class="library-url">{{url}}</a>
+    {{/if}}
+
+    <ul class="lineup space-above library-meta">
+        <li class="library-stars">{{repo.stars}} Stars</li>
+        <li class="library-forks">{{repo.forks}} Forks</li>
     </ul>
 </div>

@@ -9,7 +9,7 @@ exports.route = function (app, callback) {
     app.get('/', function (req, res, next) {
         library.popular(20, function (err, libs) {
             if (err) { return next(err); }
-            res.render('home', {libs: libs});
+            res.render('home', {home: true, libs: libs});
         });
     });
 
@@ -28,6 +28,7 @@ exports.route = function (app, callback) {
         }
         library.search(req.query, function (err, libs) {
             if (err) { return next(err); }
+            req.query.q = req.query.q.toLowerCase();
             res.render('search', {libs: libs, query: req.query});
         });
     });

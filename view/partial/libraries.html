@@ -1,14 +1,19 @@
 
 {{#if libs.length}}
 
-    <ul class="libraries">
+    <ol class="stack libraries">
         {{#each libs}}
-            <li>{{> library}}</li>
+            <li class="space">
+                {{> library}}
+            </li>
         {{/each}}
-    </ul>
+    </ol>
 
 {{else}}
 
-    <p>No libraries found</p>
+    <p>
+        No CSS libraries found.
+        Know of one? <a href="/submit">Please submit it here</a>.
+    </p>
 
 {{/if}}
