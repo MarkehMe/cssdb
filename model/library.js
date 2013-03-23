@@ -30,7 +30,6 @@ exports.getModel = function (app) {
             }
             var q = query.q.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             var regexp = new RegExp(q, 'gi');
-            console.log(regexp);
             collection
                 .find({
                     active: true,
