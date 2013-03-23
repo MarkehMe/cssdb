@@ -61,6 +61,12 @@ async.series([
         next();
     },
 
+    // Load tasks
+    function (next) {
+        require('./task/refresh-outdated-libraries').initTask(app)
+        next();
+    },
+
     // Load routes
     function (next) {
         require('./config/routes').route(app, next);

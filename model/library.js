@@ -45,6 +45,21 @@ exports.getModel = function (app) {
                 .toArray(callback);
         },
 
+        // Get outdated libraries
+        outdated: function (count, callback) {
+            var today = new Date();
+            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+            collection
+                .find({
+                    active: true,
+                    repo: {$ne: null},
+                    updated: {$lte: lastWeek}
+                })
+                .sort({updated: 1})
+                .limit(count)
+                .toArray(callback);
+        },
+
         // Transform input into something readable by the validator/creator
         transformInput: function (input, callback) {
             output = {};
@@ -163,9 +178,21 @@ exports.getModel = function (app) {
                     if (err || !repo) {
                         return callback(err, false);
                     }
-                    collection.update({_id: lib._id}, {$set: {active: true, repo: repo}}, function (err, count) {
+                    collection.update({_id: lib._id}, {$set: {active: true, updated: new Date(), repo: repo}}, function (err, count) {
                         return callback(err, (count > 0));
                     });
+                });
+            });
+        },
+
+        // Refresh a library's repo details
+        refresh: function (lib, callback) {
+            model.util.getGitHubRepo(lib.owner, lib.name, function (err, repo) {
+                if (err || !repo) {
+                    return callback(err, false);
+                }
+                collection.update({_id: lib._id}, {$set: {updated: new Date(), repo: repo}}, function (err, count) {
+                    return callback(err, (count > 0));
                 });
             });
         },
