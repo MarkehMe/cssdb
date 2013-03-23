@@ -14,6 +14,15 @@ exports.getModel = function (app) {
     // Model methods
     var model = {
 
+        // Get the most popular libraries
+        popular: function (count, callback) {
+            collection
+                .find({active: true, repo: {$ne: null}})
+                .sort({'repo.stars': -1})
+                .limit(count)
+                .toArray(callback);
+        },
+
         // Get the latest libraries
         latest: function (count, callback) {
             collection

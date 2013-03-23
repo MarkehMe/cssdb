@@ -5,11 +5,19 @@ exports.route = function (app, callback) {
     // Model shortcuts
     var library = app.model.library;
 
-    // Home page (latest)
+    // Home page (popular)
     app.get('/', function (req, res, next) {
-        library.latest(20, function (err, libs) {
+        library.popular(20, function (err, libs) {
             if (err) { return next(err); }
             res.render('home', {libs: libs});
+        });
+    });
+
+    // Recently added libraries
+    app.get('/latest', function (req, res, next) {
+        library.latest(20, function (err, libs) {
+            if (err) { return next(err); }
+            res.render('latest', {libs: libs});
         });
     });
 
