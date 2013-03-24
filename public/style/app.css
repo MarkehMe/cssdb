@@ -1406,6 +1406,11 @@ body {
 .sidebar {
   max-width: 360px;
 }
+@media all and (max-width: 640px) {
+  .sidebar {
+    max-width: none;
+  }
+}
 
 .main, .footer {
   max-width: 760px;
