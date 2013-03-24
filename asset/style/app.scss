@@ -18,6 +18,7 @@ $pigeon-type-color-link-visited: darken($c-pink-dk, 10%);
 @import "util/compat";
 
 // Objects
+@import "object/library";
 @import "object/secondary";
 
 // Core site styles

@@ -2,17 +2,23 @@
 <div class="cramp library">
 
     <h3 class="cramp library-title">
-        <a href="{{url}}" class="shh-a">{{owner}}/{{name}}</a>
+        <a href="{{url}}" class="shh-a">
+            <span class="library-title-part library-title-owner">{{owner}}</span><span class="mob-hide">/</span><span class="library-title-part">{{name}}</span>
+        </a>
     </h3>
-    <p class="cramp library-description">{{repo.description}}</p>
-    {{#if repo.homepage}}
-        <a href="{{repo.homepage}}" class="library-url">{{repo.homepage}}</a>
-    {{else}}
-        <a href="{{url}}" class="library-url">{{url}}</a>
-    {{/if}}
 
-    <ul class="lineup space-above library-meta">
+    <p class="library-description">
+        {{repo.description}}
+        {{#if repo.homepage}}
+            <a href="{{repo.homepage}}" class="library-url">{{repo.homepage}}</a>
+        {{else}}
+            <a href="{{url}}" class="library-url">{{url}}</a>
+        {{/if}}
+    </p>
+
+    <ul class="cramp lineup library-meta">
         <li class="library-stars">{{repo.stars}} Stars</li>
         <li class="library-forks">{{repo.forks}} Forks</li>
     </ul>
+
 </div>

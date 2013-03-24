@@ -1379,6 +1379,51 @@ caption {
   }
 }
 /*
+ * Library Object
+ * --------------
+ *
+ * Represents a library.
+ */
+.library {
+  overflow: hidden;
+}
+
+.library-title, .library-description {
+  margin-bottom: 11px;
+  margin-bottom:  1.1rem;
+}
+
+.library-url {
+  display: block;
+}
+
+@media all and (max-width: 640px) {
+  .library-title-part {
+    display: block;
+  }
+
+  .library-title-owner {
+    font-size: 18px;
+    font-size:  1.8rem;
+    line-height: 18px;
+    line-height:  1.8rem;
+    color: #666;
+  }
+
+  .library-description {
+    font-size: 16px;
+    font-size:  1.6rem;
+    line-height: 22px;
+    line-height:  2.2rem;
+  }
+
+  .library-url {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+/*
  * Secondary Object
  * ----------------
  *

@@ -1,0 +1,36 @@
+
+/*
+ * Library Object
+ * --------------
+ *
+ * Represents a library.
+ */
+.library {
+    overflow: hidden;
+}
+.library-title, .library-description {
+    @include rem(margin-bottom, $pigeon-type-line-height / 2);
+}
+.library-url {
+    display: block;
+}
+
+@media all and (max-width: $frag-break-mobile) {
+    .library-title-part {
+        display: block;
+    }
+    .library-title-owner {
+        @include rem(font-size, 18px);
+        @include rem(line-height, 18px);
+        color: #666;
+    }
+    .library-description {
+        @include rem(font-size, 16px);
+        @include rem(line-height, 22px);
+    }
+    .library-url {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
