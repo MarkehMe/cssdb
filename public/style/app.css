@@ -1417,6 +1417,7 @@ caption {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 85%;
+  *width: 80%;
   padding-left: 20px;
   float: right;
 }
@@ -1525,6 +1526,7 @@ html {
 
 body {
   padding: 3% 0 3% 3%;
+  *padding-left: 0;
 }
 @media all and (max-width: 640px) {
   body {
@@ -1590,6 +1592,7 @@ input[type=search], input[type=text] {
 
 .input-search, .input-text {
   width: 100%;
+  *width: 90%;
   display: block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1645,8 +1648,10 @@ input[type=search], input[type=text] {
   padding:  1rem;
   background-color: #59c3be;
   border: 0;
-  color: #333333;
   text-decoration: none;
+}
+.navigation a, .navigation a:visited {
+  color: #333333;
 }
 .navigation a:hover {
   background-color: #237d79;

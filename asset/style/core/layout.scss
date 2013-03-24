@@ -6,6 +6,7 @@ html {
 }
 body {
     padding: 3% 0 3% 3%;
+    *padding-left: 0;
 
     @media all and (max-width: $frag-break-mobile) {
         padding-left: 0;

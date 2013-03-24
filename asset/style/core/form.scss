@@ -24,6 +24,7 @@ input[type=search], input[type=text] {
 }
 .input-search, .input-text {
     width: 100%;
+    *width: 90%;
     display: block;
     @include box-sizing(border-box);
     @include rem(padding, 10px);

@@ -11,6 +11,7 @@
 .library-content {
     @include box-sizing();
     width: 85%;
+    *width: 80%;
     padding-left: $frag-gutter-width;
     float: right;
 }

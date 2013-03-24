@@ -10,9 +10,11 @@
         @include rem(padding, 10px);
         background-color: $c-teal;
         border: 0;
-        color: $pigeon-type-color;
         text-decoration: none;
-
+        
+        &, &:visited {
+            color: $pigeon-type-color;
+        }
         &:hover {
             background-color: $c-teal-dk;
             color: #fff;
