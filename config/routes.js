@@ -2,6 +2,10 @@
 // Configure
 exports.route = function (app, callback) {
 
+    // Grab some useful app info
+    var appEnv = app.get('env');
+    var isProduction = (appEnv === 'production');
+
     // Model shortcuts
     var library = app.model.library;
 
@@ -84,12 +88,15 @@ exports.route = function (app, callback) {
 
     // 404 errors
     app.use(function (req, res) {
-        res.send(404, 'Not Found'); // Todo
+        res.status(404);
+        res.render('404');
     });
 
     // 50x errors
     app.use(function (err, req, res, next) {
-        res.send(500, 'Server Error:<br/>' + err.stack); // Todo
+        res.status(500);
+        res.render('500', {stack: (isProduction ? null : err.stack)});
+        console.error(err.stack);
     });
 
     // We're done routing
