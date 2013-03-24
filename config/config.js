@@ -58,6 +58,7 @@ exports.configure = function (app, callback) {
 
     // Load/register additional helpers
     require('../view/helper/date').helper(hbs.registerHelper);
+    require('../view/helper/number').helper(hbs.registerHelper);
 
     // Set some useful dynamic view variables
     app.locals({
