@@ -7,6 +7,7 @@
     @include rem(font-size, 60px);
     @include rem(line-height, 60px);
     color: $c-teal-dk;
+    font-weight: bold;
 
     a {
         display: block;

@@ -1663,6 +1663,7 @@ input[type=search], input[type=text] {
   line-height: 60px;
   line-height:  6rem;
   color: #237d79;
+  font-weight: bold;
 }
 .logo a {
   display: block;
