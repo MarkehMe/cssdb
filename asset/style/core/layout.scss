@@ -1,8 +1,15 @@
 
 /* Root elements */
 
+html {
+    min-height: 100%;
+}
 body {
-    padding: 3% 0;
+    padding: 3% 0 3% 3%;
+
+    @media all and (max-width: $frag-break-mobile) {
+        padding-left: 0;
+    }
 }
 
 
@@ -17,12 +24,6 @@ body {
 
 
 /* Above-desktop */
-
-@media all and (min-width: 1200px) {
-    .main, .footer {
-        margin-left: 5%;
-    }
-}
 
 @media all and (min-width: 1400px) {
     .main, .footer {

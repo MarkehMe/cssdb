@@ -1,4 +1,8 @@
 
+// Site variables
+$c-teal: #59c3be;
+$c-teal-dk: #237d79;
+
 // Vendor config
 $frag-max-width: 100%;
 
@@ -14,4 +18,5 @@ $frag-max-width: 100%;
 
 // Core site styles
 @import "core/layout";
+@import "core/glitter";
 @import "core/form";
