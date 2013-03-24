@@ -77,6 +77,13 @@ exports.configure = function (app, callback) {
 
     });
 
+    // View variables from request/response
+    app.use(function (req, res, next) {
+        res.locals.host = req.host;
+        res.locals.production = (isProduction && req.host === 'cssdb.co');
+        next();
+    });
+
     // We're done configuring
     callback();
 
