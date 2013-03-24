@@ -23,17 +23,28 @@
     @include rem(line-height, 22px);
 
     li {
-        @include rem(margin-bottom, $pigeon-type-line-height / 2);
+        @include rem(margin-bottom, $pigeon-type-line-height / 4);
     }
 }
 .library-meta-count {
     display: block;
-    @include rem(padding, 10px 0);
+    @include rem(padding, 8px 0);
     background-color: #eee;
     text-align: center;
 }
-.library-title, .library-description {
-    @include rem(margin-bottom, $pigeon-type-line-height / 2);
+.library-title {
+    @include rem(margin-bottom, $pigeon-type-line-height / 4);
+    @include rem(font-size, 28px);
+    @include rem(line-height, 26px);
+
+    a:hover {
+        color: $c-teal-dk;
+    }
+}
+.library-description {
+    margin-bottom: 0;
+    @include rem(font-size, 16px);
+    @include rem(line-height, 22px);
 }
 .library-url {
     display: block;
@@ -58,10 +69,6 @@
         @include rem(font-size, 22px);
         @include rem(line-height, 22px);
         color: #666;
-    }
-    .library-description {
-        @include rem(font-size, 16px);
-        @include rem(line-height, 22px);
     }
 }
 

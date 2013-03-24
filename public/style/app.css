@@ -1438,21 +1438,36 @@ caption {
   line-height:  2.2rem;
 }
 .library-meta li {
-  margin-bottom: 11px;
-  margin-bottom:  1.1rem;
+  margin-bottom: 5.5px;
+  margin-bottom:  0.55rem;
 }
 
 .library-meta-count {
   display: block;
-  padding: 10px 0;
-  padding:  1rem 0;
+  padding: 8px 0;
+  padding:  0.8rem 0;
   background-color: #eee;
   text-align: center;
 }
 
-.library-title, .library-description {
-  margin-bottom: 11px;
-  margin-bottom:  1.1rem;
+.library-title {
+  margin-bottom: 5.5px;
+  margin-bottom:  0.55rem;
+  font-size: 28px;
+  font-size:  2.8rem;
+  line-height: 26px;
+  line-height:  2.6rem;
+}
+.library-title a:hover {
+  color: #237d79;
+}
+
+.library-description {
+  margin-bottom: 0;
+  font-size: 16px;
+  font-size:  1.6rem;
+  line-height: 22px;
+  line-height:  2.2rem;
 }
 
 .library-url {
@@ -1485,13 +1500,6 @@ caption {
     line-height: 22px;
     line-height:  2.2rem;
     color: #666;
-  }
-
-  .library-description {
-    font-size: 16px;
-    font-size:  1.6rem;
-    line-height: 22px;
-    line-height:  2.2rem;
   }
 }
 @media all and (max-width: 640px) {
