@@ -1,0 +1,31 @@
+
+/* Root elements */
+
+body {
+    padding: 3% 0;
+}
+
+
+/* Max widths */
+
+.sidebar {
+    max-width: 360px;
+}
+.main, .footer {
+    max-width: 760px;
+}
+
+
+/* Above-desktop */
+
+@media all and (min-width: 1200px) {
+    .main, .footer {
+        margin-left: 5%;
+    }
+}
+
+@media all and (min-width: 1400px) {
+    .main, .footer {
+        margin-left: 10%;
+    }
+}

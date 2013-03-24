@@ -1123,7 +1123,7 @@ caption {
 /* Grid: Base styles */
 .grid {
   width: auto;
-  max-width: 1200px;
+  max-width: 100%;
   *width: 980px;
 }
 .grid .grid {
@@ -1388,6 +1388,31 @@ caption {
   color: #666;
 }
 
+/* Root elements */
+body {
+  padding: 3% 0;
+}
+
+/* Max widths */
+.sidebar {
+  max-width: 360px;
+}
+
+.main, .footer {
+  max-width: 760px;
+}
+
+/* Above-desktop */
+@media all and (min-width: 1200px) {
+  .main, .footer {
+    margin-left: 5%;
+  }
+}
+@media all and (min-width: 1400px) {
+  .main, .footer {
+    margin-left: 10%;
+  }
+}
 /* Form fields */
 .field label {
   display: block;
