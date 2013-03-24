@@ -17,9 +17,15 @@
 
 /* Basic input styles */
 
+input[type=search], input[type=text] {
+    @include box-sizing(border-box);
+    border-radius: 0;
+    -webkit-appearance: none;
+}
 .input-search, .input-text {
     width: 100%;
-    @include box-sizing(border-box !important);
+    display: block;
+    @include box-sizing(border-box);
     @include rem(padding, 10px);
     border: 3px solid #ccc;
 

@@ -1450,11 +1450,20 @@ html {
 }
 
 /* Basic input styles */
+input[type=search], input[type=text] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
 .input-search, .input-text {
   width: 100%;
-  -webkit-box-sizing: border-box !important;
-  -moz-box-sizing: border-box !important;
-  box-sizing: border-box !important;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   padding: 10px;
   padding:  1rem;
   border: 3px solid #cccccc;
