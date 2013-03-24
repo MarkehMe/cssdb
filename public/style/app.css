@@ -1513,3 +1513,37 @@ html {
   background-color: #237d79;
   color: #fff;
 }
+
+/* Site logo */
+.logo {
+  margin-bottom: 11px;
+  margin-bottom:  1.1rem;
+  font-family: "Vollkorn", serif;
+  font-size: 60px;
+  font-size:  6rem;
+  line-height: 60px;
+  line-height:  6rem;
+  color: #237d79;
+}
+.logo a {
+  display: block;
+}
+.logo .db {
+  color: #59c3be;
+}
+.logo .tld {
+  font-size: 30px;
+  font-size:  3rem;
+}
+@media all and (max-width: 1000px) {
+  .logo {
+    font-size: 50px;
+    font-size:  5rem;
+    line-height: 50px;
+    line-height:  5rem;
+  }
+  .logo .tld {
+    font-size: 25px;
+    font-size:  2.5rem;
+  }
+}
