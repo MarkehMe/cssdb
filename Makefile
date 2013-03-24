@@ -27,6 +27,11 @@ minify-sass: compile-sass
 	@sass ./asset/style/app.scss --style compressed > ./public/style/app.min.css;
 	@echo "  > Done"
 
+# Watch Sass
+watch-sass:
+	@echo "Watching Sass for changes...";
+	@sass --watch --style expanded ./asset/style/app.scss:./public/style/app.css;
+
 
 # Deploy the app
 deploy: deps minify-sass
