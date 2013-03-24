@@ -1010,10 +1010,10 @@ h1, .h1 {
 
 /* Links */
 a {
-  color: #4781ba;
+  color: #237d79;
 }
 a:visited {
-  color: #7f629c;
+  color: #873787;
 }
 
 /* Text-level semantics */
@@ -1488,4 +1488,23 @@ html {
 .feedback-error {
   background-color: #fee;
   border: 3px solid #cc8888;
+}
+
+/* Site navigation */
+.navigation li {
+  margin-bottom: 11px;
+  margin-bottom:  1.1rem;
+}
+.navigation a {
+  display: block;
+  padding: 10px;
+  padding:  1rem;
+  background-color: #59c3be;
+  border: 0;
+  color: #333333;
+  text-decoration: none;
+}
+.navigation a:hover {
+  background-color: #237d79;
+  color: #fff;
 }
