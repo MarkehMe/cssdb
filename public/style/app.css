@@ -1387,3 +1387,65 @@ caption {
 .secondary, .secondary a {
   color: #666;
 }
+
+/* Form fields */
+.field label {
+  display: block;
+  margin-bottom: 10px;
+  margin-bottom:  1rem;
+  font-weight: bold;
+}
+
+.field-buttons {
+  text-align: right;
+}
+
+[dir=rtl] .field-buttons {
+  text-align: left;
+}
+
+/* Basic input styles */
+.input-search, .input-text {
+  width: 100%;
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  padding: 10px;
+  padding:  1rem;
+  border: 3px solid #cccccc;
+}
+.input-search:focus, .input-text:focus {
+  outline: none;
+  border: 3px solid #999999;
+}
+
+/* Buttons */
+.input-button {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  padding: 10px;
+  padding:  1rem;
+  background-color: #ccc;
+  border: 0;
+}
+.input-button:focus, .input-button:hover {
+  outline: none;
+  background-color: #999;
+}
+
+/* Form feedback */
+.feedback {
+  padding: 10px;
+  padding:  1rem;
+  background-color: #eee;
+  border: 3px solid #cccccc;
+}
+
+.feedback-error {
+  background-color: #fee;
+  border: 3px solid #cc8888;
+}

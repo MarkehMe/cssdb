@@ -21,8 +21,8 @@
 <form action="/submit" method="post">
 
     {{#if errors.length}}
-        <div class="space feedback error">
-            <p class="cramp">Something went wrong while submitting your library:</p>
+        <div class="space feedback feedback-error">
+            <p class="cramp"><b>Something went wrong while submitting your library:</b></p>
             <ul class="cramp stack">
                 {{#each errors}}
                     <li>{{this}}</li>
@@ -33,11 +33,11 @@
 
     <div class="space field">
         <label for="library-url">GitHub Repository URL</label>
-        <input id="library-url" name="url" type="text" value="{{lib.url}}" placeholder="E.g. https://github.com/owner/repo"/>
+        <input id="library-url" name="url" type="text" value="{{lib.url}}" placeholder="E.g. https://github.com/owner/repo" class="input-text"/>
     </div>
 
-    <div class="space buttons">
-        <input type="submit" value="Submit Library"/>
+    <div class="space field field-buttons">
+        <input type="submit" value="Submit Library" class="input-button"/>
     </div>
 
 </form>
