@@ -1378,6 +1378,10 @@ caption {
     clear: none;
   }
 }
+@-ms-viewport {
+  width: device-width;
+}
+
 /* Icon font */
 @font-face {
   font-family: "iconic";

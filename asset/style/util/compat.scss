@@ -1,4 +1,9 @@
 
+// Viewport config for IE
+@-ms-viewport {
+    width: device-width;
+}
+
 // Cross-browser box-sizing
 @mixin box-sizing ($box-sizing: border-box) {
     -webkit-box-sizing: $box-sizing; // Safari 3.1–5.0

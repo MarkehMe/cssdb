@@ -2,7 +2,6 @@
 <!-- Page meta-information -->
 <meta charset="utf-8"/>
 <title>{{block "title"}}</title>
-<meta name="apple-mobile-web-app-title" content="CSSDB"/>
 <meta name="description" content="{{block "description"}}"/>
 {{{block "meta"}}}
 
@@ -14,9 +13,19 @@
 <!-- Icons/logos -->
 <link rel="icon" href="/favicon.png" type="image/png"/>
 <link rel="shortcut icon" href="/favicon.ico"/>
-<link rel="apple-touch-icon" href="/logo/logo-57x57.png"/>
-<link rel="apple-touch-icon" sizes="72x72" href="/logo/logo-72x72.png"/>
-<link rel="apple-touch-icon" sizes="114x114" href="/logo/logo-114x114.png"/>
+
+<!-- iOS Info -->
+<meta name="apple-mobile-web-app-title" content="CSSDB"/>
+<link rel="apple-touch-icon" href="/logo/cssdb-57x57.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="/logo/cssdb-72x72.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="/logo/cssdb-114x114.png"/>
+
+<!-- Windows 8 Pinned Site Info -->
+<meta name="application-name" content="CSSDB"/>
+<meta name="msapplication-tooltip" content="A curated collection of great CSS, Sass, LESS and Stylus libraries."/>
+<meta name="msapplication-starturl" content="{{baseUrl}}/"/>
+<meta name="msapplication-TileColor" content="#59c3be"/>
+<meta name="msapplication-TileImage" content="/logo/cssdb-144x144.png"/>
 
 {{#if production}}
     <!-- Tracking -->
