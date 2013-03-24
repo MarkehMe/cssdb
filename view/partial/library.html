@@ -1,24 +1,40 @@
 
-<div class="cramp library">
+<div class="cramp clearfix library">
 
-    <h3 class="cramp library-title">
-        <a href="{{url}}" class="shh-a">
-            <span class="library-title-part library-title-owner">{{owner}}</span><span class="mob-hide">/</span><span class="library-title-part">{{name}}</span>
-        </a>
-    </h3>
+    <div class="library-content">
 
-    <p class="library-description">
-        {{repo.description}}
-        {{#if repo.homepage}}
-            <a href="{{repo.homepage}}" class="library-url">{{repo.homepage}}</a>
-        {{else}}
-            <a href="{{url}}" class="library-url">{{url}}</a>
-        {{/if}}
-    </p>
+        <h3 class="cramp library-title">
+            <a href="{{url}}" class="shh-a">
+                <span class="library-title-part library-title-owner">{{owner}}</span><span class="tab-hide">/</span><span class="library-title-part">{{name}}</span>
+            </a>
+        </h3>
 
-    <ul class="cramp lineup library-meta">
-        <li class="library-stars">{{repo.stars}} Stars</li>
-        <li class="library-forks">{{repo.forks}} Forks</li>
+        <p class="library-description">
+            {{repo.description}}
+            {{#if repo.homepage}}
+                <a href="{{repo.homepage}}" class="library-url">{{repo.homepage}}</a>
+            {{else}}
+                <a href="{{url}}" class="library-url">{{url}}</a>
+            {{/if}}
+        </p>
+
+    </div>
+
+    <ul class="cramp stack library-meta">
+        <li class="library-stars">
+            <span class="library-meta-count">
+                <span class="icon">&#xe001;</span>
+                {{repo.stars}}
+            </span>
+            <span class="library-meta-label hide">Stars</span>
+        </li>
+        <li class="library-forks">
+            <span class="library-meta-count">
+                <span class="icon">&#xe000;</span>
+                {{repo.forks}}
+            </span>
+            <span class="library-meta-label hide">Forks</span>
+        </li>
     </ul>
 
 </div>
