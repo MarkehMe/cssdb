@@ -1,8 +1,0 @@
-
-// Inline Block Compatibility
-// --------------------------
-@mixin inline-block {
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
-}

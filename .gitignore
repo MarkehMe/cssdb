@@ -5,6 +5,11 @@
 # Cache files
 .sass-cache
 
+# Generated front-end files
+asset/vendor
+public/style/app.css
+public/style/app.min.css
+
 # Generated npm files
 node_modules
 npm-debug.log
