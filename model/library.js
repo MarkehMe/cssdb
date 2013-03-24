@@ -61,12 +61,12 @@ exports.getModel = function (app) {
         // Get outdated libraries
         outdated: function (count, callback) {
             var today = new Date();
-            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+            var twoDaysAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() - 48);
             collection
                 .find({
                     active: true,
                     repo: {$ne: null},
-                    updated: {$lte: lastWeek}
+                    updated: {$lte: twoDaysAgo}
                 })
                 .sort({updated: 1})
                 .limit(count)
