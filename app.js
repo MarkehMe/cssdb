@@ -5,6 +5,7 @@ var express = require('express');
 var github = require('octonode');
 var MongoClient = require('mongodb').MongoClient;
 var pkg = require('./package');
+var ReadPreference = require('mongodb').ReadPreference;
 
 // Create application
 var app = express();
@@ -26,8 +27,15 @@ async.series([
     // Connect to database
     function (next) {
         var opts = {
+            db: {
+                readPreference: ReadPreference.PRIMARY_PREFERRED
+            },
             server: {
-                auto_reconnect: true
+                auto_reconnect: true,
+                readPreference: ReadPreference.PRIMARY_PREFERRED
+            },
+            replSet: {
+                readPreference: ReadPreference.PRIMARY_PREFERRED
             }
         };
         MongoClient.connect(app.get('db-connection-string'), opts, function (err, db) {
