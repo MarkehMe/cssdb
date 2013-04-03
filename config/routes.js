@@ -96,15 +96,6 @@ exports.route = function (app, callback) {
     app.use(function (err, req, res, next) {
         res.status(500);
         res.render('500', {stack: (isProduction ? null : err.stack)});
-
-        // Nasty hack to reboot application on common Modulus errors
-        if (/no replica set primary available|failed to connect/i.test(err.message)) {
-            console.error(err.message);
-            console.log('Killing process after replica set error...');
-            process.exit();
-        } else {
-            console.error(err.stack);
-        }
     });
 
     // We're done routing
