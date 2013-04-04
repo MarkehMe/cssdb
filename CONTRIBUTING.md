@@ -21,6 +21,12 @@ Refactoring/Rewriting
 We will accept refactors where it makes an improvement to the maintainability of the code-base or makes code more readable/understandable. If there's an argument about what's readable or not, chat about it in a pull-request.
 
 
+Design Guidelines
+-----------------
+
+Try to stay consistent when adding new visual elements. There is no established brand, but you should be able to stick to a visual style.
+
+
 Coding Guidelines
 -----------------
 
