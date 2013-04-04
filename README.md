@@ -16,6 +16,8 @@ Bugs/Features/Questions
 
 Use the project [issue tracker][issues] to track bugs, request/discuss features, and ask questions.
 
+If you're interested in understanding some of the development decisions that have been made so far, check out this post: [Building CSSDB][building-cssdb-post].
+
 
 Contributing
 ------------
@@ -31,6 +33,7 @@ This source code (and design) is licensed under the [Creative Commons Attributio
 
 
 
+[building-cssdb-post]: http://rowanmanning.com/posts/building-cssdb/
 [cc-by-nc]: http://creativecommons.org/licenses/by-nc/3.0/
 [contributing]: CONTRIBUTING.md
 [issues]: https://github.com/rowanmanning/cssdb/issues
