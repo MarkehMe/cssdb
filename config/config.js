@@ -74,7 +74,10 @@ exports.configure = function (app, callback) {
 
         // Asset suffixes
         min: (isProduction ? '.min' : ''),
-        cacheBuster: '?v=' + pkg.version
+        cacheBuster: '?v=' + pkg.version,
+
+        // Analytics ID
+        gaId: process.env.GOOGLE_ANALYTICS_ID || null
 
     });
 
