@@ -4,6 +4,8 @@ How To Contribute
 
 CSSDB accepts contributions from anyone, as long as you follow the guidelines below. If you'd like to contribute but aren't sure what there is for you to do, check the issue tracker for [accepted features][features] and [known bugs][bugs].
 
+It might be an idea to focus efforts on the goal of the [next milestone][milestones] before jumping onto anything too far ahead on the roadmap.
+
 
 Features
 --------
@@ -31,3 +33,4 @@ Coding Guidelines
 [bugs]: https://github.com/rowanmanning/cssdb/issues?labels=bug&state=open
 [features]: https://github.com/rowanmanning/cssdb/issues?labels=feature&state=open
 [issues]: https://github.com/rowanmanning/cssdb/issues
+[milestones]: https://github.com/rowanmanning/cssdb/issues/milestones
