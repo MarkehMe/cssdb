@@ -1,3 +1,4 @@
+'use strict';
 
 // Dependencies
 var async = require('async');
@@ -71,8 +72,8 @@ async.series([
 
     // Load tasks
     function (next) {
-        require('./task/refresh-outdated-libraries').initTask(app)
-        require('./task/email-activation-links').initTask(app)
+        require('./task/refresh-outdated-libraries').initTask(app);
+        require('./task/email-activation-links').initTask(app);
         next();
     },
 
@@ -90,7 +91,7 @@ async.series([
 
 // Once booting is complete...
 function done (err) {
-    if (err) { 
+    if (err) {
         console.error('App did not boot: ' + err.message);
         process.exit(1);
     }

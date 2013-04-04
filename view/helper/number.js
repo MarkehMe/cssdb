@@ -1,9 +1,10 @@
+'use strict';
 
 // Add helper
 exports.helper = function (register) {
 
     // Format a number for smaller display
-    register('number-format', function (context, block) {
+    register('number-format', function (context) {
         var num = parseInt(context, 10);
         if (num < 1000) {
             return num;

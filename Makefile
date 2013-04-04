@@ -33,6 +33,14 @@ watch-sass:
 	@sass --watch --style expanded ./asset/style/app.scss:./public/style/app.css;
 
 
+# Lint JavaScript
+lint:
+	@echo "Linting JavaScript..."
+	@./node_modules/.bin/jshint \
+		--config ./test/config/jshint.json \
+		config model public task view ./*.js
+
+
 # Deploy the app
 deploy: deps minify-sass
 	@echo "Deploying...";

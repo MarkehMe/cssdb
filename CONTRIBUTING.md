@@ -33,6 +33,7 @@ Coding Guidelines
 * No trailing whitespace please (except in Markdown)
 * Generally follow the style that is currently present in the code – consistency is important
 * Keep indentation consistent (four spaces)
+* Don't commit code with lint errors (run `make lint` to run JSHint with the correct configurations)
 
 
 

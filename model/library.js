@@ -1,3 +1,4 @@
+'use strict';
 
 // Dependencies
 var async = require('async');
@@ -61,7 +62,12 @@ exports.getModel = function (app) {
         // Get outdated libraries
         outdated: function (count, callback) {
             var today = new Date();
-            var twoDaysAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() - 48);
+            var twoDaysAgo = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate(),
+                today.getHours() - 48
+            );
             collection
                 .find({
                     active: true,
@@ -83,7 +89,7 @@ exports.getModel = function (app) {
 
         // Transform input into something readable by the validator/creator
         transformInput: function (input, callback) {
-            output = {};
+            var output = {};
 
             // Set URL and identifying details
             output.url = input.url || null;
@@ -126,7 +132,7 @@ exports.getModel = function (app) {
             var errors = [];
 
             // Validate URL (which in turn validates name/owner)
-            if (!model.util.isValidRepoUrl(output.url)) {
+            if (!model.util.isValidRepoUrl(input.url)) {
                 errors.push('Please enter a valid GitHub repository URL');
             }
 
@@ -140,9 +146,9 @@ exports.getModel = function (app) {
 
                 // Check whether the repository has been added already
                 function (next) {
-                    model.util.isRepoAdded(output.owner, output.name, function (err, alreadyExists) {
+                    model.util.isRepoAdded(input.owner, input.name, function (err, alreadyExists) {
                         if (alreadyExists) {
-                            errors.push('The library you entered has already been submitted')
+                            errors.push('The library you entered has already been submitted');
                         }
                         next(err);
                     });
@@ -150,7 +156,7 @@ exports.getModel = function (app) {
 
                 // Check that the repo actually exists
                 function (next) {
-                    model.util.getGitHubRepo(output.owner, output.name, function (err, repo) {
+                    model.util.getGitHubRepo(input.owner, input.name, function (err, repo) {
                         if (!repo) {
                             errors.push(
                                 'We couldn\'t find the GitHub repository for your library. ' +
@@ -200,7 +206,13 @@ exports.getModel = function (app) {
                     if (err || !repo) {
                         return callback(err, false);
                     }
-                    collection.update({_id: lib._id}, {$set: {active: true, updated: new Date(), repo: repo}}, function (err, count) {
+                    collection.update({_id: lib._id}, {
+                        $set: {
+                            active: true,
+                            updated: new Date(),
+                            repo: repo
+                        }
+                    }, function (err, count) {
                         return callback(err, (count > 0));
                     });
                 });
@@ -221,19 +233,29 @@ exports.getModel = function (app) {
                 if (err || !repo) {
                     return callback(err, false);
                 }
-                collection.update({_id: lib._id}, {$set: {updated: new Date(), repo: repo}}, function (err, count) {
+                collection.update({_id: lib._id}, {
+                    $set: {
+                        updated: new Date(),
+                        repo: repo
+                    }
+                }, function (err, count) {
                     return callback(err, (count > 0));
                 });
             });
         },
 
-        // Recalculate all libraries repo popularities (you get nothing back from this, it's hit and hope)
+        // Recalculate all libraries repo popularities
+        // (you get nothing back from this, it's hit and hope)
         recalculatePopularity: function () {
             var cursor = collection.find({active: true, repo: {$ne: null}});
             cursor.each(function(err, lib) {
                 if (err || !lib) { return; }
                 model.util.calculateRepoPopularity(lib.repo);
-                collection.update({_id: lib._id}, {$set: {'repo.popularity': lib.repo.popularity}}, function (err) {
+                collection.update({_id: lib._id}, {
+                    $set: {
+                        'repo.popularity': lib.repo.popularity
+                    }
+                }, function () {
                     // nothing here...
                 });
             });
@@ -242,7 +264,10 @@ exports.getModel = function (app) {
         // Model utilities
         util: {
 
-            repoUrlRegExp: /^https?:\/\/(www\.)?github\.com\/([a-z0-9][a-z0-9\-]{0,39})\/([a-z0-9\-\.]{1,100})\/?$/i,
+            repoUrlRegExp: new RegExp(
+                '^https?:\\/\\/(www\\.)?github\\.com\\/' +
+                '([a-z0-9][a-z0-9\\-]{0,39})\\/([a-z0-9\\-\\.]{1,100})\\/?$',
+            'i'),
 
             // Return whether a value is a valid Repo URL
             isValidRepoUrl: function (val) {
@@ -309,7 +334,7 @@ exports.getModel = function (app) {
                 // Todo: work out a nicer algorithm some time
 
                 // Initial counts
-                popularity = repo.stars;
+                var popularity = repo.stars;
                 popularity += (repo.forks * 2);
 
                 // Last updated modifiers

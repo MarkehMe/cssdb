@@ -1,3 +1,4 @@
+'use strict';
 
 // Configure
 exports.route = function (app, callback) {
@@ -93,7 +94,7 @@ exports.route = function (app, callback) {
     });
 
     // 50x errors
-    app.use(function (err, req, res, next) {
+    app.use(function (err, req, res) {
         res.status(500);
         res.render('500', {stack: (isProduction ? null : err.stack)});
     });

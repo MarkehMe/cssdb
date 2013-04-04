@@ -1,6 +1,6 @@
+'use strict';
 
 // Dependencies
-var async = require('async');
 var CronJob = require('cron').CronJob;
 var nodemailer = require('nodemailer');
 
@@ -29,7 +29,9 @@ exports.initTask = function (app) {
             // Compose email
             var emailText = 'The following libraries are awaiting activation:';
             libs.forEach(function (lib) {
-                emailText += '\n\n' + lib.owner + '/' + lib.name + '\nRepo URL: ' + lib.url + '\nActivate: ' + app.get('baseUrl') + '/activate?key=' + lib.key
+                emailText += '\n\n' + lib.owner + '/' + lib.name + '\n' +
+                             'Repo URL: ' + lib.url + '\n' +
+                             'Activate: ' + app.get('baseUrl') + '/activate?key=' + lib.key;
             });
 
             // Create mail transport
@@ -47,15 +49,18 @@ exports.initTask = function (app) {
                 from: app.get('email-sender'),
                 subject: 'CSSDB: New Libraries Awaiting Activation',
                 text: emailText
-            }, function (err, response) {
+            }, function (err) {
                 if (err) {
                     return console.error('No links emailed: ' + err.message);
                 }
                 transport.close();
                 console.log(libs.length + ' links emailed');
-                library.markAsNotified(libs, function (err, count) {
+                library.markAsNotified(libs, function (err) {
                     if (err) {
-                        return console.error('Link notification status not updated: ' + err.message);
+                        return console.error(
+                            'Link notification status not updated: ' +
+                            err.message
+                        );
                     }
                 });
             });

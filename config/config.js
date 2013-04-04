@@ -1,3 +1,4 @@
+'use strict';
 
 // Dependencies
 var express = require('express');
@@ -48,7 +49,7 @@ exports.configure = function (app, callback) {
     // View settings
     app.set('views', appDir + '/view');
     app.engine('html', hbs.express3({
-        extname: ".html",
+        extname: '.html',
         layoutsDir: appDir + '/view/layout',
         partialsDir: appDir + '/view/partial',
         defaultLayout: appDir + '/view/layout/default'

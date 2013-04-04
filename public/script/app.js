@@ -1,8 +1,10 @@
+/* global _gaq */
 (function (doc, host) {
+    'use strict';
 
     // Is a link external?
     function isLinkExternal (link) {
-        return (link.indexOf(host) == -1 && link.match(/^https?:\/\//i));
+        return (link.indexOf(host) === -1 && link.match(/^https?:\/\//i));
     }
 
     // Bind a click tracking event
@@ -16,7 +18,7 @@
                     }, 100);
                     return false;
                 }
-            }
+            };
         }
     }
 
@@ -25,7 +27,7 @@
 
     // Outbound link click tracking
     var i, len = links.length;
-    for (i = 0; i < len; i++) {
+    for (i = 0; i < len; i += 1) {
         bindClickTrackingEvent(links[i]);
     }
 

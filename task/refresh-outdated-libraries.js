@@ -1,3 +1,4 @@
+'use strict';
 
 // Dependencies
 var async = require('async');
@@ -23,7 +24,7 @@ exports.initTask = function (app) {
                     if (!wasUpdated) {
                         return callback(new Error('Library ' + libName + ' was not updated'));
                     }
-                    console.log('Library ' + libName + ' was updated')
+                    console.log('Library ' + libName + ' was updated');
                     callback();
                 });
             }, function (err) {
@@ -31,7 +32,7 @@ exports.initTask = function (app) {
                     return console.error('Error occurred: ' + err.message);
                 }
                 console.log('Finished updating');
-            })
+            });
         });
     }
 
