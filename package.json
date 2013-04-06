@@ -18,13 +18,16 @@
     },
     "devDependencies": {
         "bower": "~0.8",
+        "cucumber": "~0.3",
         "foreman": "0.0.25",
         "jshint": "~1.1",
-        "supervisor": "~0.5"
+        "supervisor": "~0.5",
+        "zombie": "~1.4"
     },
 
     "main": "./app.js",
     "scripts": {
-        "start": "node app.js"
+        "start": "node app.js",
+        "test": "make test"
     }
 }

@@ -40,6 +40,15 @@ lint:
 		--config ./test/config/jshint.json \
 		config model public task view ./*.js
 
+# Run all tests
+test: test-feature
+
+# Run feature tests
+test-feature:
+	@echo "Running features..."
+	@./node_modules/.bin/cucumber-js \
+		--format pretty \
+		./test/feature
 
 # Deploy the app
 deploy: deps minify-sass
