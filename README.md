@@ -19,10 +19,17 @@ Use the project [issue tracker][issues] to track bugs, request/discuss features,
 If you're interested in understanding some of the development decisions that have been made so far, check out this post: [Building CSSDB][building-cssdb-post].
 
 
-Contributing
-------------
+Development
+-----------
 
 Feel free to contribute code, design and ideas to CSSDB, we'll be more than happy to chat with you. Please, before diving in, review our [contribution guidelines][contributing]. This will help prevent you and me both from wasting time :)
+
+All code should be linted and have passing tests. You can run JSHint with the correct config, and run feature tests using the commands below:
+
+```sh
+$ make lint  # Lint JavaScript code
+$ make test  # Run automated tests
+```
 
 
 License

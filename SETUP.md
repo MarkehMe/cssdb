@@ -69,6 +69,30 @@ SMTP_PASS=<the SMTP password>
 ```
 
 
+Configuring Tests
+-----------------
+
+In order to run automated tests, you'll need to create a test configuration file as well. Assuming you've already configured the application as outlined above, you can create your test configuration with the following command:
+
+```sh
+$ cp .env .env.test
+```
+
+Once you've got your `.env.test` file, you'll need to change a few settings.
+
+Firstly, change the `DB` configuration in `.env.test` – you don't want your tests to destroy your development database. I use the following configuration for mine:
+
+```
+DB=mongodb://localhost/cssdb_test
+```
+
+Secondly, change the `PORT` configuration to something different. If you leave it the same as your development config, you won't be able to run the application and test it at the same time. I just increment my development port by 1:
+
+```
+PORT=5001
+```
+
+
 Compiling Styles
 ----------------
 
