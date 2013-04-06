@@ -5,7 +5,6 @@
     // Mouse button constants
     var MOUSE_BUTTON_LEFT = 0;
     var MOUSE_BUTTON_MIDDLE = 1;
-    var MOUSE_BUTTON_RIGHT = 2;
 
     // Get clicked button from event (nasty, not super reliable)
     function getClickedButton (evt) {
