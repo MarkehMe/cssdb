@@ -4,7 +4,6 @@
 
     // Mouse button constants
     var MOUSE_BUTTON_LEFT = 0;
-    var MOUSE_BUTTON_MIDDLE = 1;
 
     // Get clicked button from event (nasty, not super reliable)
     function getClickedButton (evt) {
@@ -26,14 +25,12 @@
                 var button = getClickedButton(evt || window.event);
                 if (window._gaq && _gaq.push) {
                     _gaq.push(['_trackEvent', 'External Links', 'Click', link.href]);
-                    setTimeout(function() {
-                        if (button === MOUSE_BUTTON_LEFT) {
+                    if (button === MOUSE_BUTTON_LEFT) {
+                        setTimeout(function() {
                             doc.location = link.href;
-                        } else if (button === MOUSE_BUTTON_MIDDLE) {
-                            window.open(link.href);
-                        }
-                    }, 100);
-                    return false;
+                        }, 100);
+                        return false;
+                    }
                 }
             };
         }
