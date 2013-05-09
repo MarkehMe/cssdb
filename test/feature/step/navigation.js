@@ -16,4 +16,8 @@ module.exports = function () {
         this.navigate('/submit', callback);
     });
 
+    this.When(/^I navigate to "([^"]*)"$/i, function (url, callback) {
+        this.navigate(url, callback);
+    });
+
 };

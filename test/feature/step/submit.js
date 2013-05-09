@@ -63,4 +63,17 @@ module.exports = function () {
         });
     });
 
+    this.Then(/^the library "([^"]*)" should be active$/i, function (libUrl, callback) {
+        this.db.collection('libraries').findOne({url: libUrl}, function (err, repo) {
+            if (err) { return callback.fail(err); }
+            if (!repo) {
+                return callback.fail(new Error('Repository "' + libUrl + '" was not added'));
+            }
+            if (!repo.active) {
+                return callback.fail(new Error('Repository "' + libUrl + '" is not active'));
+            }
+            callback();
+        });
+    });
+
 };
