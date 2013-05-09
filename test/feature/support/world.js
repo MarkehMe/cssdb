@@ -4,6 +4,7 @@
 var Browser = require("zombie");
 var child_process = require('child_process');
 var fs = require('fs');
+var MongoClient = require('mongodb').MongoClient;
 
 // Read test environment variables
 var envFile;
@@ -52,7 +53,20 @@ World.prototype.startApp = function (callback) {
         data = data.toString();
         if (!callbackCalled && data.trim() === 'App running on port ' + testEnv.PORT) {
             callbackCalled = true;
-            callback();
+
+            // Connect to the database
+            var connectionString = (testEnv.DB || 'mongodb://localhost/cssdb_test');
+            var dbOpts = {server: {auto_reconnect: true}};
+            MongoClient.connect(connectionString, dbOpts, function (err, db) {
+                that.db = db;
+
+                // Clear the database
+                db.dropDatabase(function (err) {
+                    callback();
+                });
+
+            });
+
         }
     });
 
@@ -80,11 +94,18 @@ World.prototype.startApp = function (callback) {
 
 // Stop the application
 World.prototype.stopApp = function (callback) {
+    var that = this;
+
     this.browser = null;
-    if (this.appProcess) {
-        this.appProcess.kill();
+    if (that.appProcess) {
+        that.appProcess.kill();
     }
+
+    // Finish cleaning up
+    that.db.close();
+    that.db = null;
     callback();
+
 };
 
 // Navigate to a page
