@@ -22,10 +22,11 @@
     function bindClickTrackingEvent (link) {
         if (link.href && isLinkExternal(link.href)) {
             link.onclick = function (evt) {
-                var button = getClickedButton(evt || window.event);
+                evt = evt || window.event;
+                var button = getClickedButton(evt);
                 if (window._gaq && _gaq.push) {
                     _gaq.push(['_trackEvent', 'External Links', 'Click', link.href]);
-                    if (button === MOUSE_BUTTON_LEFT) {
+                    if (button === MOUSE_BUTTON_LEFT && !evt.metaKey) {
                         setTimeout(function() {
                             doc.location = link.href;
                         }, 100);
